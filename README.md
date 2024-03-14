@@ -1,6 +1,6 @@
 # terraform-aws-ec2-instance-linux
 
-A standalone Ubuntu (latest) EC2 instansce.
+A standalone Ubuntu (latest) EC2 instance.
 
 [//]: # (BEGIN_TF_DOCS)
 
