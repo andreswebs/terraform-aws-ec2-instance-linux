@@ -17,8 +17,6 @@ resource "aws_instance" "this" {
   iam_instance_profile    = var.iam_profile_name
   instance_type           = var.instance_type
 
-  associate_public_ip_address = false
-
   root_block_device {
     delete_on_termination = var.volume_delete
     encrypted             = var.volume_encrypted
