@@ -5,7 +5,7 @@ module "ubuntu_22_04_latest" {
 
 locals {
   ssh_key_name = var.ssh_key_name
-  ami_id       = module.ubuntu_22_04_latest.ami_id
+  ami_id       = var.ami_id != null ? var.ami_id : module.ubuntu_22_04_latest.ami_id
 }
 
 resource "aws_instance" "this" {
@@ -27,9 +27,9 @@ resource "aws_instance" "this" {
     enabled = var.enclave_enabled
   }
 
-  tags = {
+  tags = merge(var.tags, {
     Name = var.name
-  }
+  })
 
   lifecycle {
     ignore_changes = [ami, tags]

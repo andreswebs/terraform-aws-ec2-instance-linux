@@ -53,3 +53,17 @@ variable "associate_public_ip_address" {
   type    = bool
   default = true
 }
+
+variable "ami_id" {
+  type    = string
+  default = null
+  validation {
+    condition     = var.ami_id == null || can(regex("ami-[a-f0-9]{17}", var.ami_id))
+    error_message = "Must be a valid AMI ID."
+  }
+}
+
+variable "tags" {
+  type    = map(string)
+  default = {}
+}
