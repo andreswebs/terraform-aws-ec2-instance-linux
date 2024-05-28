@@ -27,6 +27,10 @@ resource "aws_instance" "this" {
     enabled = var.enclave_enabled
   }
 
+  user_data                   = var.user_data
+  user_data_base64            = var.user_data_base64
+  user_data_replace_on_change = var.user_data
+
   tags = merge(var.tags, {
     Name = var.name
   })

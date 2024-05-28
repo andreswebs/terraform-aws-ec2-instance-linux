@@ -32,7 +32,8 @@ variable "subnet_id" {
 }
 
 variable "ssh_key_name" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "iam_profile_name" {
@@ -66,4 +67,19 @@ variable "ami_id" {
 variable "tags" {
   type    = map(string)
   default = {}
+}
+
+variable "user_data" {
+  type    = string
+  default = null
+}
+
+variable "user_data_base64" {
+  type    = string
+  default = null
+}
+
+variable "user_data_replace_on_change" {
+  type    = bool
+  default = false
 }

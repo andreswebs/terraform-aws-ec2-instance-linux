@@ -50,9 +50,12 @@ module "ec2_instance" {
 | <a name="input_instance_termination_disable"></a> [instance\_termination\_disable](#input\_instance\_termination\_disable) | n/a | `bool` | `false` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | n/a | `string` | `"m6a.xlarge"` | no |
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | n/a | yes |
-| <a name="input_ssh_key_name"></a> [ssh\_key\_name](#input\_ssh\_key\_name) | n/a | `string` | n/a | yes |
+| <a name="input_ssh_key_name"></a> [ssh\_key\_name](#input\_ssh\_key\_name) | n/a | `string` | `null` | no |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | n/a | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(string)` | `{}` | no |
+| <a name="input_user_data"></a> [user\_data](#input\_user\_data) | n/a | `string` | `null` | no |
+| <a name="input_user_data_base64"></a> [user\_data\_base64](#input\_user\_data\_base64) | n/a | `string` | `null` | no |
+| <a name="input_user_data_replace_on_change"></a> [user\_data\_replace\_on\_change](#input\_user\_data\_replace\_on\_change) | n/a | `bool` | `false` | no |
 | <a name="input_volume_delete"></a> [volume\_delete](#input\_volume\_delete) | n/a | `bool` | `true` | no |
 | <a name="input_volume_encrypted"></a> [volume\_encrypted](#input\_volume\_encrypted) | n/a | `bool` | `true` | no |
 | <a name="input_volume_size"></a> [volume\_size](#input\_volume\_size) | n/a | `number` | `50` | no |
