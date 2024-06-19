@@ -28,6 +28,9 @@ module "ec2_instance" {
     {
       device_name = "/dev/sdf"
       volume_size = 100
+      uid         = 1000
+      gid         = 1000
+      mount_path  = "/data"
     },
   ]
 }

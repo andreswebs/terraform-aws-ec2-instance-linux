@@ -1,0 +1,30 @@
+#cloud-config
+
+# hostname: $${hostname}
+package_upgrade: true
+packages:
+  - nvme-cli
+
+runcmd:
+  # pause to wait for volume attachments
+  - sleep 30
+  - VOLUME_NAMES=$(find /dev | grep -i 'nvme[0-21]n1$')
+  - |
+    for VOLUME in $${VOLUME_NAMES}; do
+      while [ ! -e $${VOLUME} ]; do
+        sleep 1;
+      done
+      ALIAS=$(nvme id-ctrl -v "$${VOLUME}"| grep -Po '/dev/(sd[b-z]|xvd[b-z])')
+      [ -n "$${ALIAS}" ] && { ln -s "$${VOLUME}" "$${ALIAS}"; }
+    done
+  %{~ for v in volumes ~}
+  - blkid $(readlink -f ${v.device_name}) || mkfs.ext4 -m 0 -E lazy_itable_init=0,lazy_journal_init=0,discard ${v.device_name}
+  - fsck.ext4 -tvy ${v.device_name}
+  %{~ if v.mount_path != null ~}
+  - mkdir -p ${v.mount_path}
+  - mount -t ext4 -O discard,default ${v.device_name} ${v.mount_path}
+  %{~ if v.uid != null && v.gid != null ~}
+  - chown -R ${v.uid}:${v.gid} ${v.mount_path}
+  %{~ endif ~}
+  %{~ endif ~}
+  %{~ endfor ~}

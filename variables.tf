@@ -95,6 +95,9 @@ variable "extra_volumes" {
     size           = optional(number, 50)
     final_snapshot = optional(bool, false)
     tags           = optional(map(string), {})
+    uid            = optional(number, null)
+    gid            = optional(number, null)
+    mount_path     = optional(string, null)
   }))
 
   default = []
