@@ -3,12 +3,6 @@ module "ubuntu_22_04_latest" {
   version = "2.0.0"
 }
 
-locals {
-  ssh_key_name  = var.ssh_key_name
-  ami_id        = var.ami_id != null ? var.ami_id : module.ubuntu_22_04_latest.ami_id
-  extra_volumes = { for volume in var.extra_volumes : volume.device_name => volume }
-}
-
 data "aws_subnet" "this" {
   id = var.subnet_id
 }
@@ -24,17 +18,12 @@ data "cloudinit_config" "this" {
     })
   }
 
-  # part {
-  #   content_type = "text/x-shellscript"
-  #   content      = file("${path.module}/scripts/alias.sh")
-  # }
+}
 
-
-  # part {
-  #   content_type = "text/x-shellscript"
-  #   content      = file("${path.module}/scripts/attach.sh")
-  # }
-
+locals {
+  ssh_key_name  = var.ssh_key_name
+  ami_id        = var.ami_id != null ? var.ami_id : module.ubuntu_22_04_latest.ami_id
+  extra_volumes = { for volume in var.extra_volumes : volume.device_name => volume }
 }
 
 resource "aws_instance" "this" {
@@ -56,7 +45,6 @@ resource "aws_instance" "this" {
     enabled = var.enclave_enabled
   }
 
-  # user_data                   = var.user_data
   user_data_base64            = data.cloudinit_config.this.rendered
   user_data_replace_on_change = var.user_data_replace_on_change
 
@@ -68,16 +56,6 @@ resource "aws_instance" "this" {
     ignore_changes = [ami, tags]
   }
 
-  # provisioner "remote-exec" {
-  #   inline = [
-  #     "cloud-init status --wait",
-  #   ]
-  # }
-
-}
-
-data "aws_instance" "this" {
-  instance_id = aws_instance.this.id
 }
 
 resource "aws_eip" "this" {

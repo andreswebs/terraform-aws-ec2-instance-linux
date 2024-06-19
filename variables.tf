@@ -69,16 +69,6 @@ variable "tags" {
   default = {}
 }
 
-variable "user_data" {
-  type    = string
-  default = null
-}
-
-variable "user_data_base64" {
-  type    = string
-  default = null
-}
-
 variable "user_data_replace_on_change" {
   type    = bool
   default = false
