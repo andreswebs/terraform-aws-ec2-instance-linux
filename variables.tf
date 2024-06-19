@@ -2,19 +2,24 @@ variable "name" {
   type = string
 }
 
-variable "volume_delete" {
+variable "root_volume_delete" {
   type    = bool
   default = true
 }
 
-variable "volume_encrypted" {
+variable "root_volume_encrypted" {
   type    = bool
   default = true
 }
 
-variable "volume_size" {
+variable "root_volume_type" {
+  type    = string
+  default = "gp3"
+}
+
+variable "root_volume_size" {
   type    = number
-  default = 50
+  default = 0
 }
 
 variable "instance_type" {
@@ -45,6 +50,11 @@ variable "enclave_enabled" {
   default = false
 }
 
+variable "kms_key_id" {
+  type    = string
+  default = null
+}
+
 variable "vpc_security_group_ids" {
   type    = list(string)
   default = []
@@ -52,7 +62,7 @@ variable "vpc_security_group_ids" {
 
 variable "associate_public_ip_address" {
   type    = bool
-  default = true
+  default = false
 }
 
 variable "ami_id" {
@@ -79,11 +89,10 @@ variable "extra_volumes" {
     device_name    = string
     name           = optional(string, null)
     encrypted      = optional(bool, true)
-    kms_key_id     = optional(string, null)
     snapshot_id    = optional(string, null)
+    final_snapshot = optional(bool, false)
     type           = optional(string, "gp3")
     size           = optional(number, 50)
-    final_snapshot = optional(bool, false)
     tags           = optional(map(string), {})
     uid            = optional(number, null)
     gid            = optional(number, null)

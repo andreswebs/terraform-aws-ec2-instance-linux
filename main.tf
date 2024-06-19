@@ -21,9 +21,10 @@ data "cloudinit_config" "this" {
 }
 
 locals {
-  ssh_key_name  = var.ssh_key_name
-  ami_id        = var.ami_id != null ? var.ami_id : module.ubuntu_22_04_latest.ami_id
-  extra_volumes = { for volume in var.extra_volumes : volume.device_name => volume }
+  ssh_key_name     = var.ssh_key_name
+  ami_id           = var.ami_id != null ? var.ami_id : module.ubuntu_22_04_latest.ami_id
+  root_volume_size = var.root_volume_size == 0 ? null : var.root_volume_size
+  extra_volumes    = { for volume in var.extra_volumes : volume.device_name => volume }
 }
 
 resource "aws_instance" "this" {
@@ -36,13 +37,20 @@ resource "aws_instance" "this" {
   instance_type           = var.instance_type
 
   root_block_device {
-    delete_on_termination = var.volume_delete
-    encrypted             = var.volume_encrypted
-    volume_size           = var.volume_size
+    delete_on_termination = var.root_volume_delete
+    encrypted             = var.root_volume_encrypted
+    volume_type           = var.root_volume_type
+    volume_size           = local.root_volume_size
+    kms_key_id            = var.kms_key_id
   }
 
   enclave_options {
     enabled = var.enclave_enabled
+  }
+
+  metadata_options {
+    http_endpoint = "enabled"
+    http_tokens   = "required"
   }
 
   user_data_base64            = data.cloudinit_config.this.rendered
@@ -70,7 +78,7 @@ resource "aws_ebs_volume" "this" {
   availability_zone = data.aws_subnet.this.availability_zone
   size              = each.value.size
   encrypted         = each.value.encrypted
-  kms_key_id        = each.value.kms_key_id
+  kms_key_id        = var.kms_key_id
   snapshot_id       = each.value.snapshot_id
   type              = each.value.type
   final_snapshot    = each.value.final_snapshot
