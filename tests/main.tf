@@ -1,16 +1,17 @@
 
 module "ec2_base" {
-  source         = "andreswebs/ec2-base/aws"
-  vpc_id         = var.vpc_id
-  cidr_whitelist = var.cidr_whitelist
-  name           = "k3s"
+  source              = "andreswebs/ec2-base/aws"
+  version             = "0.3.0"
+  vpc_id              = var.vpc_id
+  cidr_whitelist_ipv4 = var.cidr_whitelist_ipv4
+  name                = "example"
 
   allow_web_traffic = true
 
   extra_whitelisted_ingress_rules = [
     {
-      from_port = "6443"
-      to_port   = "6443"
+      from_port = "4321"
+      to_port   = "4321"
     }
   ]
 
@@ -20,16 +21,18 @@ module "ec2_instance" {
   source                 = "../"
   subnet_id              = var.subnet_id
   vpc_security_group_ids = [module.ec2_base.security_group.id]
-  ssh_key_name           = module.ec2_base.key_pair.key_name
   iam_profile_name       = module.ec2_base.instance_profile.name
-  name                   = "k3s"
+  name                   = "example"
+
+  app_username  = "example"
+  app_is_sudoer = true
 
   extra_volumes = [
     {
       device_name = "/dev/sdf"
-      volume_size = 100
-      uid         = 1000
-      gid         = 1000
+      volume_size = 10
+      uid         = 2000
+      gid         = 2000
       mount_path  = "/data"
     },
   ]

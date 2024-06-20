@@ -5,6 +5,23 @@ packages:
   - nvme-cli
 
 runcmd:
+  %{~ if app_username != "" && app_username != null ~}
+  - addgroup --gid ${app_gid} ${app_username}
+  - |
+    adduser \
+      --gid ${app_gid} \
+      --uid ${app_uid} \
+      --gecos "" \
+      --shell /bin/bash \
+      --no-create-home \
+      --disabled-password \
+      ${app_username}
+  %{~ if app_is_sudoer ~}
+  - usermod --append --groups sudo ${app_username}
+  - mkdir -p /etc/sudoers.d
+  - echo "${app_username} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${app_username}
+  %{~ endif ~}
+  %{~ endif ~}
   - sleep 30
   - VOLUME_NAMES=$(find /dev | grep -i 'nvme[0-21]n1$')
   - |

@@ -14,14 +14,17 @@ data "cloudinit_config" "this" {
   part {
     content_type = "text/cloud-config"
     content = templatefile("${path.module}/tpl/cloudinit.yaml.tftpl", {
-      volumes = var.extra_volumes
+      volumes       = var.extra_volumes
+      app_username  = var.app_username
+      app_uid       = var.app_uid
+      app_gid       = var.app_gid
+      app_is_sudoer = var.app_is_sudoer
     })
   }
 
 }
 
 locals {
-  ssh_key_name     = var.ssh_key_name
   ami_id           = var.ami_id != null ? var.ami_id : module.ubuntu_22_04_latest.ami_id
   root_volume_size = var.root_volume_size == 0 ? null : var.root_volume_size
   extra_volumes    = { for volume in var.extra_volumes : volume.device_name => volume }

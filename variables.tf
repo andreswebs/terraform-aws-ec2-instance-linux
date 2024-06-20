@@ -101,3 +101,27 @@ variable "extra_volumes" {
 
   default = []
 }
+
+variable "app_username" {
+  type    = string
+  default = null
+  validation {
+    condition     = var.app_username == null || can(regex("^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\\$)$", var.app_username))
+    error_message = "Must be a valid Linux username."
+  }
+}
+
+variable "app_uid" {
+  type    = number
+  default = 2000
+}
+
+variable "app_gid" {
+  type    = number
+  default = 2000
+}
+
+variable "app_is_sudoer" {
+  type    = bool
+  default = false
+}

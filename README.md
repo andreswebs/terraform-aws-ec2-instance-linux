@@ -44,6 +44,10 @@ module "ec2_instance" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_ami_id"></a> [ami\_id](#input\_ami\_id) | n/a | `string` | `null` | no |
+| <a name="input_app_gid"></a> [app\_gid](#input\_app\_gid) | n/a | `number` | `2000` | no |
+| <a name="input_app_is_sudoer"></a> [app\_is\_sudoer](#input\_app\_is\_sudoer) | n/a | `bool` | `false` | no |
+| <a name="input_app_uid"></a> [app\_uid](#input\_app\_uid) | n/a | `number` | `2000` | no |
+| <a name="input_app_username"></a> [app\_username](#input\_app\_username) | n/a | `string` | `null` | no |
 | <a name="input_associate_public_ip_address"></a> [associate\_public\_ip\_address](#input\_associate\_public\_ip\_address) | n/a | `bool` | `false` | no |
 | <a name="input_enclave_enabled"></a> [enclave\_enabled](#input\_enclave\_enabled) | n/a | `bool` | `false` | no |
 | <a name="input_extra_volumes"></a> [extra\_volumes](#input\_extra\_volumes) | n/a | <pre>list(object({<br>    device_name    = string<br>    name           = optional(string, null)<br>    encrypted      = optional(bool, true)<br>    snapshot_id    = optional(string, null)<br>    final_snapshot = optional(bool, false)<br>    type           = optional(string, "gp3")<br>    size           = optional(number, 50)<br>    tags           = optional(map(string), {})<br>    uid            = optional(number, null)<br>    gid            = optional(number, null)<br>    mount_path     = optional(string, null)<br>  }))</pre> | `[]` | no |
