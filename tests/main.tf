@@ -30,7 +30,7 @@ module "ec2_instance" {
   extra_volumes = [
     {
       device_name = "/dev/sdf"
-      volume_size = 10
+      size        = 10
       uid         = 2000
       gid         = 2000
       mount_path  = "/data"
