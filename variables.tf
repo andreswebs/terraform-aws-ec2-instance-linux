@@ -24,7 +24,7 @@ variable "root_volume_size" {
 
 variable "instance_type" {
   type    = string
-  default = "m6a.xlarge"
+  default = "m7a.xlarge"
 }
 
 variable "instance_termination_disable" {

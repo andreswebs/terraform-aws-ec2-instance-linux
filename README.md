@@ -53,7 +53,7 @@ module "ec2_instance" {
 | <a name="input_extra_volumes"></a> [extra\_volumes](#input\_extra\_volumes) | n/a | <pre>list(object({<br>    device_name    = string<br>    name           = optional(string, null)<br>    encrypted      = optional(bool, true)<br>    snapshot_id    = optional(string, null)<br>    final_snapshot = optional(bool, false)<br>    type           = optional(string, "gp3")<br>    size           = optional(number, 50)<br>    tags           = optional(map(string), {})<br>    uid            = optional(number, null)<br>    gid            = optional(number, null)<br>    mount_path     = optional(string, null)<br>  }))</pre> | `[]` | no |
 | <a name="input_iam_profile_name"></a> [iam\_profile\_name](#input\_iam\_profile\_name) | n/a | `string` | n/a | yes |
 | <a name="input_instance_termination_disable"></a> [instance\_termination\_disable](#input\_instance\_termination\_disable) | n/a | `bool` | `false` | no |
-| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | n/a | `string` | `"m6a.xlarge"` | no |
+| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | n/a | `string` | `"m7a.xlarge"` | no |
 | <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | n/a | `string` | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | n/a | yes |
 | <a name="input_root_volume_delete"></a> [root\_volume\_delete](#input\_root\_volume\_delete) | n/a | `bool` | `true` | no |
