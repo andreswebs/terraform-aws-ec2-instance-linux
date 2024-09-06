@@ -101,5 +101,5 @@ resource "aws_volume_attachment" "this" {
 }
 
 data "aws_instance" "this" {
-  id = aws_instance.this.id
+  instance_id = aws_instance.this.id
 }
