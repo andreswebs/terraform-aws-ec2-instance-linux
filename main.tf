@@ -99,3 +99,7 @@ resource "aws_volume_attachment" "this" {
   instance_id = aws_instance.this.id
   volume_id   = aws_ebs_volume.this[each.key].id
 }
+
+data "aws_instance" "this" {
+  id = aws_instance.this.id
+}
