@@ -1,6 +1,6 @@
-module "ubuntu_22_04_latest" {
+module "ubuntu_24_04_latest" {
   source  = "andreswebs/ami-ubuntu/aws"
-  version = "2.0.0"
+  version = "3.0.0"
 }
 
 data "aws_subnet" "this" {
@@ -25,7 +25,7 @@ data "cloudinit_config" "this" {
 }
 
 locals {
-  ami_id           = var.ami_id != null ? var.ami_id : module.ubuntu_22_04_latest.ami_id
+  ami_id           = var.ami_id != null ? var.ami_id : module.ubuntu_24_04_latest.ami_id
   root_volume_size = var.root_volume_size == 0 ? null : var.root_volume_size
   extra_volumes    = { for volume in var.extra_volumes : volume.device_name => volume }
 }

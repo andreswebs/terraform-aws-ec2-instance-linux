@@ -50,7 +50,7 @@ module "ec2_instance" {
 | <a name="input_app_username"></a> [app\_username](#input\_app\_username) | n/a | `string` | `null` | no |
 | <a name="input_associate_public_ip_address"></a> [associate\_public\_ip\_address](#input\_associate\_public\_ip\_address) | n/a | `bool` | `false` | no |
 | <a name="input_enclave_enabled"></a> [enclave\_enabled](#input\_enclave\_enabled) | n/a | `bool` | `false` | no |
-| <a name="input_extra_volumes"></a> [extra\_volumes](#input\_extra\_volumes) | n/a | <pre>list(object({<br>    device_name    = string<br>    name           = optional(string, null)<br>    encrypted      = optional(bool, true)<br>    snapshot_id    = optional(string, null)<br>    final_snapshot = optional(bool, false)<br>    type           = optional(string, "gp3")<br>    size           = optional(number, 50)<br>    tags           = optional(map(string), {})<br>    uid            = optional(number, null)<br>    gid            = optional(number, null)<br>    mount_path     = optional(string, null)<br>  }))</pre> | `[]` | no |
+| <a name="input_extra_volumes"></a> [extra\_volumes](#input\_extra\_volumes) | n/a | <pre>list(object({<br/>    device_name    = string<br/>    name           = optional(string, null)<br/>    encrypted      = optional(bool, true)<br/>    snapshot_id    = optional(string, null)<br/>    final_snapshot = optional(bool, false)<br/>    type           = optional(string, "gp3")<br/>    size           = optional(number, 50)<br/>    tags           = optional(map(string), {})<br/>    uid            = optional(number, null)<br/>    gid            = optional(number, null)<br/>    mount_path     = optional(string, null)<br/>  }))</pre> | `[]` | no |
 | <a name="input_iam_profile_name"></a> [iam\_profile\_name](#input\_iam\_profile\_name) | n/a | `string` | n/a | yes |
 | <a name="input_instance_termination_disable"></a> [instance\_termination\_disable](#input\_instance\_termination\_disable) | n/a | `bool` | `false` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | n/a | `string` | `"m7a.xlarge"` | no |
@@ -70,7 +70,7 @@ module "ec2_instance" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ubuntu_22_04_latest"></a> [ubuntu\_22\_04\_latest](#module\_ubuntu\_22\_04\_latest) | andreswebs/ami-ubuntu/aws | 2.0.0 |
+| <a name="module_ubuntu_24_04_latest"></a> [ubuntu\_24\_04\_latest](#module\_ubuntu\_24\_04\_latest) | andreswebs/ami-ubuntu/aws | 3.0.0 |
 
 ## Outputs
 
