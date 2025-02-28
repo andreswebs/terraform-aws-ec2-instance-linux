@@ -24,7 +24,6 @@ data "cloudinit_config" "this" {
 
   dynamic "part" {
     for_each = var.user_data != null && var.user_data != "" ? [true] : []
-    iterator = "user_data"
     content {
       content_type = "text/x-shellscript"
       content      = var.user_data
