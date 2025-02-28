@@ -125,3 +125,8 @@ variable "app_is_sudoer" {
   type    = bool
   default = false
 }
+
+variable "user_data" {
+  type    = string
+  default = null
+}

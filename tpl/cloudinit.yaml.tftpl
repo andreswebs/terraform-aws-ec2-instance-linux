@@ -4,18 +4,17 @@ package_upgrade: true
 packages:
   - nvme-cli
 
-runcmd:
-  %{~ if app_username != "" && app_username != null ~}
+runcmd: %{~ if app_username != "" && app_username != null ~}
   - addgroup --gid ${app_gid} ${app_username}
   - |
-    adduser \
-      --gid ${app_gid} \
-      --uid ${app_uid} \
-      --gecos "" \
-      --shell /bin/bash \
-      --no-create-home \
-      --disabled-password \
-      ${app_username}
+  adduser \
+  --gid ${app_gid} \
+  --uid ${app_uid} \
+  --gecos "" \
+  --shell /bin/bash \
+  --no-create-home \
+  --disabled-password \
+  ${app_username}
   %{~ if app_is_sudoer ~}
   - usermod --append --groups sudo ${app_username}
   - mkdir -p /etc/sudoers.d
@@ -25,13 +24,13 @@ runcmd:
   - sleep 30
   - VOLUME_NAMES=$(find /dev | grep -i 'nvme[0-21]n1$')
   - |
-    for VOLUME in $${VOLUME_NAMES}; do
-      while [ ! -e $${VOLUME} ]; do
-        sleep 1;
-      done
-      ALIAS=$(nvme id-ctrl -v "$${VOLUME}"| grep -Po '/dev/(sd[b-z]|xvd[b-z])')
-      [ -n "$${ALIAS}" ] && { ln -s "$${VOLUME}" "$${ALIAS}"; }
-    done
+  for VOLUME in $${VOLUME_NAMES}; do
+  while [ ! -e $${VOLUME} ]; do
+  sleep 1;
+  done
+  ALIAS=$(nvme id-ctrl -v "$${VOLUME}"| grep -Po '/dev/(sd[b-z]|xvd[b-z])')
+  [ -n "$${ALIAS}" ] && { ln -s "$${VOLUME}" "$${ALIAS}"; }
+  done
   %{~ for v in volumes ~}
   - blkid $(readlink -f ${v.device_name}) || mkfs.ext4 -m 0 -E lazy_itable_init=0,lazy_journal_init=0,discard ${v.device_name}
   - fsck.ext4 -tvy ${v.device_name}
@@ -39,9 +38,9 @@ runcmd:
   - mkdir -p ${v.mount_path}
   - mount -t ext4 -O discard,default ${v.device_name} ${v.mount_path}
   - |
-    printf '%s%s 0 2\n' 'UUID=' \
-    "$(findmnt -n -o UUID,TARGET,FSTYPE,OPTIONS ${v.mount_path})" |
-    tee -a /etc/fstab
+  printf '%s%s 0 2\n' 'UUID=' \
+  "$(findmnt -n -o UUID,TARGET,FSTYPE,OPTIONS ${v.mount_path})" |
+  tee -a /etc/fstab
   - mount -a
   %{~ if v.uid != null && v.gid != null ~}
   - chown -R ${v.uid}:${v.gid} ${v.mount_path}
