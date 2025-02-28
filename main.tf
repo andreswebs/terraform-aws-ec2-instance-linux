@@ -73,6 +73,9 @@ resource "aws_eip" "this" {
   count    = var.associate_public_ip_address ? 1 : 0
   instance = aws_instance.this.id
   domain   = "vpc"
+  tags = merge(var.tags, {
+    Name = var.name
+  })
 }
 
 resource "aws_ebs_volume" "this" {
@@ -86,7 +89,7 @@ resource "aws_ebs_volume" "this" {
   type              = each.value.type
   final_snapshot    = each.value.final_snapshot
 
-  tags = merge(each.value.tags, {
+  tags = merge(var.tags, each.value.tags, {
     Name = each.value.name
   })
 }
