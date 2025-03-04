@@ -5,8 +5,8 @@ packages:
   - nvme-cli
 
 runcmd: %{~ if app_username != "" && app_username != null }
+  - groupadd --force --gid ${app_gid} ${app_username}
   - |
-  groupadd --force --gid ${app_gid} ${app_username}
   useradd \
   --no-user-group \
   --gid ${app_gid} \
@@ -20,22 +20,21 @@ runcmd: %{~ if app_username != "" && app_username != null }
   ${app_username}
   %{~ if app_is_sudoer ~}
   - if getent group sudo; then usermod --append --groups sudo ${app_username}; fi
-  - |
-  mkdir -p /etc/sudoers.d
-  echo "${app_username} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${app_username}
+  - mkdir -p /etc/sudoers.d
+  - echo "${app_username} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${app_username}
   %{~ endif ~}
   %{~ endif ~}
   - |
   if command -v nvme &> /dev/null; then
-  sleep 30
-  VOLUME_NAMES=$(find /dev | grep -i 'nvme[0-21]n1$')
-  for VOLUME in $${VOLUME_NAMES}; do
-  while [ ! -e "$${VOLUME}" ]; do
+  sleep 30;
+  VOLUME_NAMES=$(find /dev | grep -i 'nvme[0-21]n1$');
+  for VOLUME in $${VOLUME_NAMES}; do \
+  while [ ! -e "$${VOLUME}" ]; do \
   sleep 1;
-  done
-  ALIAS=$(nvme id-ctrl -v "$${VOLUME}"| grep -Po '/dev/(sd[b-z]|xvd[b-z])')
+  done;
+  ALIAS=$(nvme id-ctrl -v "$${VOLUME}"| grep -Po '/dev/(sd[b-z]|xvd[b-z])');
   if [ -n "$${ALIAS}" ]; then
-  ln -s "$${VOLUME}" "$${ALIAS}"
+  ln -s "$${VOLUME}" "$${ALIAS}";
   fi
   done
   fi
@@ -44,13 +43,13 @@ runcmd: %{~ if app_username != "" && app_username != null }
   - blkid $(readlink -f ${v.device_name}) || mkfs.ext4 -m 0 -E lazy_itable_init=0,lazy_journal_init=0,discard ${v.device_name}
   - fsck.ext4 -tvy ${v.device_name}
   %{~ if v.mount_path != null && v.mount_path != ""  ~}
+  - mkdir -p ${v.mount_path}
+  - mount -t ext4 -O discard,default ${v.device_name} ${v.mount_path}
   - |
-  mkdir -p ${v.mount_path}
-  mount -t ext4 -O discard,default ${v.device_name} ${v.mount_path}
   printf '%s%s 0 2\n' 'UUID=' \
   "$(findmnt -n -o UUID,TARGET,FSTYPE,OPTIONS ${v.mount_path})" | \
   tee -a /etc/fstab
-  mount -a
+  - mount -a
   %{~ if v.uid != null && v.gid != null ~}
   - chown -R ${v.uid}:${v.gid} ${v.mount_path}
   %{~ endif ~}
