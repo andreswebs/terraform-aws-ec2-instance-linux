@@ -25,7 +25,7 @@ runcmd: %{~ if app_username != "" && app_username != null ~}
   - VOLUME_NAMES=$(find /dev | grep -i 'nvme[0-21]n1$')
   - |
   for VOLUME in $${VOLUME_NAMES}; do
-  while [ ! -e $${VOLUME} ]; do
+  while [ ! -e "$${VOLUME}" ]; do
   sleep 1;
   done
   ALIAS=$(nvme id-ctrl -v "$${VOLUME}"| grep -Po '/dev/(sd[b-z]|xvd[b-z])')
