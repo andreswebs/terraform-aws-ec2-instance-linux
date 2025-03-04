@@ -13,12 +13,12 @@ data "cloudinit_config" "this" {
 
   part {
     content_type = "text/cloud-config"
-    content = templatefile("${path.module}/tpl/cloudinit.yaml.tftpl", {
-      volumes       = var.extra_volumes
+    content = templatefile("${path.module}/tpl/cloud-config.yaml.tftpl", {
       app_username  = var.app_username
       app_uid       = var.app_uid
       app_gid       = var.app_gid
       app_is_sudoer = var.app_is_sudoer
+      volumes       = var.extra_volumes
     })
   }
 

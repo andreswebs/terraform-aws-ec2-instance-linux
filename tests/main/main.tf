@@ -18,7 +18,7 @@ module "ec2_base" {
 }
 
 module "ec2_instance" {
-  source                 = "../"
+  source                 = "../../"
   subnet_id              = var.subnet_id
   vpc_security_group_ids = [module.ec2_base.security_group.id]
   iam_profile_name       = module.ec2_base.instance_profile.name
