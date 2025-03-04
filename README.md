@@ -45,6 +45,7 @@ module "ec2_instance" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_ami_id"></a> [ami\_id](#input\_ami\_id) | n/a | `string` | `null` | no |
 | <a name="input_app_gid"></a> [app\_gid](#input\_app\_gid) | n/a | `number` | `2000` | no |
+| <a name="input_app_home_dir"></a> [app\_home\_dir](#input\_app\_home\_dir) | n/a | `string` | `null` | no |
 | <a name="input_app_is_sudoer"></a> [app\_is\_sudoer](#input\_app\_is\_sudoer) | n/a | `bool` | `false` | no |
 | <a name="input_app_uid"></a> [app\_uid](#input\_app\_uid) | n/a | `number` | `2000` | no |
 | <a name="input_app_username"></a> [app\_username](#input\_app\_username) | n/a | `string` | `null` | no |

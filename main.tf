@@ -18,6 +18,7 @@ data "cloudinit_config" "this" {
       app_uid       = var.app_uid
       app_gid       = var.app_gid
       app_is_sudoer = var.app_is_sudoer
+      app_home_dir  = var.app_home_dir
       volumes       = var.extra_volumes
     })
   }

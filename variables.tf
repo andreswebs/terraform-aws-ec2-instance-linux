@@ -126,6 +126,11 @@ variable "app_is_sudoer" {
   default = false
 }
 
+variable "app_home_dir" {
+  type    = string
+  default = null
+}
+
 variable "user_data" {
   type    = string
   default = null
