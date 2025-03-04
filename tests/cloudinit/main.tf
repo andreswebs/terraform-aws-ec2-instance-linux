@@ -5,8 +5,8 @@ locals {
     app_uid       = 2000
     app_is_sudoer = true
 
-    # app_home_dir = "/var/lib/app"
-    app_home_dir = null
+    app_home_dir = "/var/lib/app"
+    # app_home_dir = null
 
     # volumes = []
     volumes = [
