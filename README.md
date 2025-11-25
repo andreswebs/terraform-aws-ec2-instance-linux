@@ -72,7 +72,7 @@ module "ec2_instance" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ubuntu_24_04_latest"></a> [ubuntu\_24\_04\_latest](#module\_ubuntu\_24\_04\_latest) | andreswebs/ami-ubuntu/aws | 3.0.0 |
+| <a name="module_ubuntu_24_04_latest"></a> [ubuntu\_24\_04\_latest](#module\_ubuntu\_24\_04\_latest) | andreswebs/ami-ubuntu/aws | 4.0.0 |
 
 ## Outputs
 
@@ -86,15 +86,15 @@ module "ec2_instance" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 5.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 6.0 |
 | <a name="provider_cloudinit"></a> [cloudinit](#provider\_cloudinit) | ~> 2.3 |
 
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.5 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.11 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 6.0 |
 | <a name="requirement_cloudinit"></a> [cloudinit](#requirement\_cloudinit) | ~> 2.3 |
 
 ## Resources

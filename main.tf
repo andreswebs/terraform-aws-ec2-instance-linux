@@ -1,6 +1,6 @@
 module "ubuntu_24_04_latest" {
   source  = "andreswebs/ami-ubuntu/aws"
-  version = "3.0.0"
+  version = "4.0.0"
 }
 
 data "aws_subnet" "this" {
